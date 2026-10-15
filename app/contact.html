@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Demo Shop - Contact</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Contact us</h1>
+
+  <form id="contact-form">
+    <label>Full name
+      <input name="name" required>
+    </label>
+    <label>Topic
+      <select name="topic">
+        <option value="">-- choose --</option>
+        <option value="order">Order problem</option>
+        <option value="payment">Payment</option>
+        <option value="other">Something else</option>
+      </select>
+    </label>
+    <fieldset>
+      <legend>Preferred contact</legend>
+      <label class="inline"><input type="radio" name="via" value="email" checked> Email</label>
+      <label class="inline"><input type="radio" name="via" value="phone"> Phone</label>
+    </fieldset>
+    <label>Message
+      <textarea name="message" rows="4"></textarea>
+    </label>
+    <label class="inline">
+      <input type="checkbox" name="terms"> I agree to the terms
+    </label>
+    <button type="submit" disabled>Send message</button>
+  </form>
+
+  <p id="result" class="success" role="status"></p>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const submit = form.querySelector('button');
+    form.terms.addEventListener('change', () => { submit.disabled = !form.terms.checked; });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Simulate a slow backend.
+      setTimeout(() => {
+        document.getElementById('result').textContent =
+          `Thanks ${form.name.value}! We will reply by ${form.via.value}.`;
+        form.hidden = true;
+      }, 500);
+    });
+  </script>
+</body>
+</html>

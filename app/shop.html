@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Demo Shop - Products</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>Products</h1>
+    <div>
+      <span id="user"></span>
+      Cart: <span class="badge" data-testid="cart-count">0</span>
+      <button id="logout">Log out</button>
+    </div>
+  </header>
+
+  <div class="filters">
+    <label>Search
+      <input type="search" name="search" placeholder="Search products">
+    </label>
+    <label>Category
+      <select name="category">
+        <option value="all">All</option>
+        <option value="electronics">Electronics</option>
+        <option value="home">Home</option>
+        <option value="sports">Sports</option>
+      </select>
+    </label>
+  </div>
+
+  <p id="status">Loading products...</p>
+  <ul class="products" aria-label="Product list"></ul>
+
+  <script>
+    const user = sessionStorage.getItem('user');
+    if (!user) location.href = '/';
+    document.getElementById('user').textContent = user;
+
+    const list = document.querySelector('ul.products');
+    const status = document.getElementById('status');
+    const cartCount = document.querySelector('[data-testid="cart-count"]');
+    const search = document.querySelector('input[name="search"]');
+    const category = document.querySelector('select[name="category"]');
+    let products = [];
+    let cart = 0;
+
+    function render() {
+      const term = search.value.toLowerCase();
+      const visible = products.filter(p =>
+        (category.value === 'all' || p.category === category.value) &&
+        p.name.toLowerCase().includes(term));
+
+      list.innerHTML = '';
+      for (const p of visible) {
+        const li = document.createElement('li');
+        li.innerHTML = `<span><strong>${p.name}</strong> - $${p.price.toFixed(2)}</span>`;
+        const btn = document.createElement('button');
+        btn.textContent = 'Add to cart';
+        btn.addEventListener('click', () => {
+          cartCount.textContent = ++cart;
+          btn.textContent = 'Added';
+          btn.disabled = true;
+        });
+        li.appendChild(btn);
+        list.appendChild(li);
+      }
+      status.textContent = visible.length ? '' : 'No products found';
+      status.hidden = visible.length > 0;
+    }
+
+    fetch('/api/products')
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(data => { products = data; render(); })
+      .catch(() => { status.textContent = 'Could not load products. Please try again later.'; status.className = 'error'; });
+
+    search.addEventListener('input', render);
+    category.addEventListener('change', render);
+    document.getElementById('logout').addEventListener('click', () => {
+      sessionStorage.clear();
+      location.href = '/';
+    });
+  </script>
+</body>
+</html>

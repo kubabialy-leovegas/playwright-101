@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Demo Shop - Login</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Welcome to Demo Shop</h1>
+  <p>Use <code>qa@example.com</code> / <code>password123</code> to sign in.</p>
+
+  <form id="login-form" novalidate>
+    <label>Email
+      <input type="email" name="email" placeholder="you@example.com">
+    </label>
+    <label>Password
+      <input type="password" name="password">
+    </label>
+    <label class="inline">
+      <input type="checkbox" name="remember"> Remember me
+    </label>
+    <button type="submit">Sign in</button>
+    <p id="login-error" class="error" role="alert" hidden></p>
+  </form>
+
+  <p><a href="/contact.html">Contact us</a></p>
+
+  <script>
+    const form = document.getElementById('login-form');
+    const error = document.getElementById('login-error');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = form.email.value.trim();
+      const password = form.password.value;
+
+      if (!email || !password) {
+        error.textContent = 'Email and password are required';
+        error.hidden = false;
+        return;
+      }
+      if (email !== 'qa@example.com' || password !== 'password123') {
+        error.textContent = 'Invalid email or password';
+        error.hidden = false;
+        return;
+      }
+      sessionStorage.setItem('user', email);
+      location.href = '/shop.html';
+    });
+  </script>
+</body>
+</html>
