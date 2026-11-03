@@ -1,0 +1,11 @@
+spring:
+  main:
+    banner-mode: off
+
+e2e:
+  # Where the demo shop backend runs (start it with `mvn spring-boot:run` in ../backend).
+  base-url: http://localhost:8080
+
+logging:
+  level:
+    root: WARN

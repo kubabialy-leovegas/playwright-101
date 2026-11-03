@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    banner-mode: off
+  jackson:
+    # Leave out empty fields, e.g. "reason" on an order that was not rejected.
+    default-property-inclusion: non_null
+
+shop:
+  # How long the fake payment provider takes to answer, unless a test changes it.
+  payment-delay: 1500ms

@@ -51,6 +51,12 @@ Go through them in order. Each file starts with a comment explaining the idea.
 
 Solutions for the trainer are in `solutions/` (outside `tests/`, so they don't run by default).
 
+## Part 2: API tests in Kotlin + Cucumber
+
+`backend/` is a small Spring Boot + Kotlin service (login, cart, orders, contact). The `e2e/`
+folder tests it with Kotlin and Cucumber, the same way `onboarding-e2e-tests` tests our
+services. See [e2e/README.md](e2e/README.md).
+
 ## Suggested session plan (~2h)
 
 1. **Why automate, why Playwright** (10 min): cross-browser, auto-waiting, great tooling.
