@@ -1,0 +1,5 @@
+node_modules/
+# App builds are copied here by `npm run build:*` in ../app; never commit them
+app/ios/*.app/
+app/android/*.apk
+logs/

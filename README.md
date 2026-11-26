@@ -57,6 +57,13 @@ Solutions for the trainer are in `solutions/` (outside `tests/`, so they don't r
 folder tests it with Kotlin and Cucumber, the same way `onboarding-e2e-tests` tests our
 services. See [e2e/README.md](e2e/README.md).
 
+## Part 3: native app tests with WebdriverIO + Appium
+
+`native/app/` is the Demo Shop as a React Native app for iOS and Android, using the same
+`backend/`. The `native/e2e/` folder tests it on the iOS simulator and the Android emulator with
+WebdriverIO, Appium and Mocha, the same way `lvuk-native-apps/e2e` tests our brand apps.
+See [native/README.md](native/README.md).
+
 ## Suggested session plan (~2h)
 
 1. **Why automate, why Playwright** (10 min): cross-browser, auto-waiting, great tooling.
